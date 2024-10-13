@@ -161,6 +161,7 @@ return [
          */
 
          Laravel\Passport\PassportServiceProvider::class,
+         Kreait\Laravel\Firebase\ServiceProvider::class,
 
         /*
          * Application Service Providers...

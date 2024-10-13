@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Authorizable;
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +59,10 @@ class User extends Authenticatable
     public function device_tokens(): HasMany
     {
         return $this->hasMany(DeviceToken::class);
+    }
+
+    public function routeNotificationForFcm($notification = null)
+    {
+        return $this->device_tokens()->pluck('token')->toArray();
     }
 }

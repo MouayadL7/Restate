@@ -3,8 +3,7 @@
 namespace App\Services;
 
 use App\DTOs\LoginDTO;
-use App\Exceptions\LoginException;
-use App\Helpers\ResponseHelper;
+use App\Exceptions\CustomException;
 use App\Repositories\DeviceTokenRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +16,7 @@ class LoginService
         try {
             // Attempt to authenticate the user
             if (!Auth::attempt($dto->toArray())) {
-                throw new LoginException('Invalid phone number or password', 401);
+                throw new CustomException('Invalid phone number or password', 401);
             }
 
             // Retrieve the authenticated user
